@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: "2048-ingress"
@@ -10,7 +10,10 @@ spec:
   rules:
   - http:
       paths:
-      - path: /*
+      - pathType: Prefix
+        path: "/*"
         backend:
-          serviceName: "service-2048"
-          servicePort: 80
+          service:
+            name: "service-2048"
+            port:
+              number: 80
